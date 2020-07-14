@@ -46,3 +46,6 @@ bower.json
 
 # Ignore node_modules
 node_modules/
+# 追加
+/public/packs
+.history
