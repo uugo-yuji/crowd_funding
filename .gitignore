@@ -49,3 +49,5 @@ node_modules/
 # 追加
 /public/packs
 .history
+#　エディタ設定
+.vscode/
