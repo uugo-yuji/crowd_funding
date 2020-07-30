@@ -14,6 +14,7 @@ class InvestmentsController < ApplicationController
 
   # GET /investments/new
   def new
+    @product = Product.find(params[:product_id])
     @investment = Investment.new
   end
 
@@ -24,11 +25,12 @@ class InvestmentsController < ApplicationController
   # POST /investments
   # POST /investments.json
   def create
-    @investment = Investment.new(investment_params)
-
+    @investment = current_user.investments.new(investment_params)
+    @investment.product_id = params[:product_id]
+    # params[:product_id]でproduct_idを受け取れる
     respond_to do |format|
       if @investment.save
-        format.html { redirect_to @investment, notice: 'Investment was successfully created.' }
+        format.html { redirect_to product_investments_path, notice: 'Investment was successfully created.' }
         format.json { render :show, status: :created, location: @investment }
       else
         format.html { render :new }
@@ -69,6 +71,6 @@ class InvestmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def investment_params
-      params.require(:investment).permit(:references, :references, :price)
+      params.require(:investment).permit(:price)
     end
 end

@@ -10,7 +10,7 @@
   <%= @product.desc %>
 </p>
 <% unless @product.user == current_user %>
-  <%= link_to '出資する', new_investment_path %> |
+  <%= link_to '出資する', new_product_investment_path(@product) %> |
 <% end %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
