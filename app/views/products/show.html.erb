@@ -9,18 +9,9 @@
   <strong>Desc:</strong>
   <%= @product.desc %>
 </p>
-<%
-=begin%>
- <% unless @product.user == current_user %> 
-<%
-=end%>
+
 <% if @product.owner?(current_user.id) %>
   <%= link_to '出資する', new_product_investment_path(@product) %> |
 <% end %>
-<%
-=begin%>
- <% end %> 
-<%
-=end%>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
