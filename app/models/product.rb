@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :investments, dependent: :destroy
 
-  def owner?(user_id)
-    self.user_id == user_id
+  def owner?(user)
+    self.user_id == user.id
   end
 end
