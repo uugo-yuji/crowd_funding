@@ -1,10 +1,11 @@
 class Admin::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = current_user.products.all
   end
 
   # GET /products/1
@@ -24,7 +25,7 @@ class Admin::ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
+    @product = current_user.products.new(product_params)
 
     respond_to do |format|
       if @product.save
