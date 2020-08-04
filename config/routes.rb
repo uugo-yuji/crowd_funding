@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :products do
+  resources :products, only: [:index, :show] do
     resources :investments, only: [:index, :new, :create]
   end
 
