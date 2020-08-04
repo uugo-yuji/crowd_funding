@@ -1,6 +1,7 @@
 class Admin::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+  before_action :product_owner, only: [:show, :new, :create, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
@@ -71,5 +72,13 @@ class Admin::ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:title, :desc)
+    end
+
+    #productの所有者かどうか？
+    def product_owner
+      @product = current_user.products.find_by(id: params[:id])
+        unless @product
+          redirect_to admin_products_url
+        end
     end
 end
