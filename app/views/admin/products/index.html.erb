@@ -12,6 +12,8 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td><%= product.title %></td>
+        <td><%= product.desc %></td>
         <td><%= link_to 'Show', [:admin, product] %></td>
         <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
         <td><%= link_to 'Destroy', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' } %></td>
