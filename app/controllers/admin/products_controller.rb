@@ -1,7 +1,7 @@
 class Admin::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update, :destroy]
-  before_action :owner?, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :owner?, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
@@ -76,8 +76,6 @@ class Admin::ProductsController < ApplicationController
 
     #productの所有者かどうか？
     def owner?
-        unless current_user.products == @product
-          redirect_to admin_products_url
-        end
+      redirect_to admin_products_url unless @product.owner?(current_user)
     end
 end
