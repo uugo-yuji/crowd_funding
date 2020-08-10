@@ -7,4 +7,8 @@ class Product < ApplicationRecord
   def owner?(user)
     self.user_id == user.id
   end
+
+  def liked?(user)
+    likes.where(user_id: user.id).exists?
+  end
 end

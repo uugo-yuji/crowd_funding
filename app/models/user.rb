@@ -9,7 +9,4 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :products
 
-  def already_liked?(product)
-    self.likes.exists?(product_id: product.id)
-  end
 end
