@@ -9,6 +9,10 @@ class Product < ApplicationRecord
   end
 
   def liked?(user)
-    likes.where(user_id: user.id).exists?
+    get_like_by(user).present?
+  end
+
+  def get_like_by(user)
+    likes.find_by(user_id: user.id)
   end
 end
