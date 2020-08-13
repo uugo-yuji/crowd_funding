@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :products, only: [:index, :show] do
     resources :investments, only: [:index, :new, :create]
+    resources :likes, only: [:create, :destroy]
   end
 
   namespace :admin do
