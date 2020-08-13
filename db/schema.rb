@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_104415) do
+ActiveRecord::Schema.define(version: 2020_08_04_212030) do
+
+  create_table "investments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "product_id"
+    t.string "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_investments_on_product_id"
+    t.index ["user_id"], name: "index_investments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_likes_on_product_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "title"
@@ -49,5 +68,9 @@ ActiveRecord::Schema.define(version: 2020_07_10_104415) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "investments", "products"
+  add_foreign_key "investments", "users"
+  add_foreign_key "likes", "products"
+  add_foreign_key "likes", "users"
   add_foreign_key "products", "users"
 end

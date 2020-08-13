@@ -17,13 +17,15 @@
         <td><%= product.title %></td>
         <td><%= product.desc %></td>
         <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% unless product.owner?(current_user) %>
+          <% if product.liked?(current_user) %>
+            <td><%= button_to 'いいねを取り消す', product_like_path(product_id: product.id, id: product.get_like_by(current_user).id), method: :delete %></td>
+          <% else %>
+            <td><%= button_to 'いいね', product_likes_path(product.id) %></td>
+          <% end %>
+        <% end %>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>
