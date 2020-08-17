@@ -6,13 +6,6 @@ RSpec.describe Product, type: :model do
     @product = FactoryBot.create(:product)
   end
 
-  describe 'Userに紐ついているProduct' do
-    it "Userに紐ついてProductの作成" do
-      product = @product
-      expect(product).to be_valid
-    end
-  end
-
   describe 'owner?(user)メソッド' do
     it "Productのuser_idの比較 ture" do
       user = @user
