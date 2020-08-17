@@ -7,7 +7,7 @@ RSpec.describe Product, type: :model do
   end
 
   describe '#owner?(user)' do
-    it "Productのuser_idの比較 ture" do
+    it "tureになること" do
       user = @user
       product = user.products.build(
         title: "test",
@@ -17,7 +17,7 @@ RSpec.describe Product, type: :model do
       expect(product.owner?(user)).to eq(true)
     end
 
-    it "Productのuser_idの比較 false" do
+    it "falseになること" do
       user = @user
       product = @product
       expect(product.owner?(user)).to eq(false)
