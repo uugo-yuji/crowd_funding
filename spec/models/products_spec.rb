@@ -6,7 +6,7 @@ RSpec.describe Product, type: :model do
     @product = FactoryBot.create(:product)
   end
 
-  describe 'owner?(user)メソッド' do
+  describe '#owner?(user)' do
     it "Productのuser_idの比較 ture" do
       user = @user
       product = user.products.build(
