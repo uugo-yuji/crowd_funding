@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-    let(:user) { FactoryBot.create(:user) }
-    let(:owner) { FactoryBot.create(:user) }
-    let(:product) { FactoryBot.create(:product) }
-    let(:my_product) { FactoryBot.create(:product, user: user) }
-    let(:like) { FactoryBot.create(:like, user_id: user.id, product_id: my_product.id) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:owner) { FactoryBot.create(:user) }
+  let(:product) { FactoryBot.create(:product) }
+  let(:my_product) { FactoryBot.create(:product, user: user) }
+  let(:like) { FactoryBot.create(:like, user_id: user.id, product_id: my_product.id) }
 
   describe '#owner?(user)' do
     it "tureになること" do
