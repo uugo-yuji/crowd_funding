@@ -6,10 +6,10 @@ RSpec.describe Product, type: :model do
 
   describe '#owner?(user)' do
     context 'ユーザがオーナーの場合' do
-      let(:my_product) { FactoryBot.create(:product, user: user) }
+      let(:product) { FactoryBot.create(:product, user: user) }
 
       it "tureになること" do
-        expect(my_product.owner?(user)).to be_truthy
+        expect(product.owner?(user)).to be_truthy
       end
     end
 
