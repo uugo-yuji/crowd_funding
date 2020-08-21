@@ -65,7 +65,7 @@ RSpec.describe Product, type: :model do
       end
 
       it 'likeのレコードが返ってこないこと' do
-        expect(my_product.get_like_by(user)).to eq(nil)
+        expect(my_product.get_like_by(user)).to be_nil
       end
 
     end
