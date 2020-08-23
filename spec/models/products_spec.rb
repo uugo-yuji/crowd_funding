@@ -58,14 +58,14 @@ RSpec.describe Product, type: :model do
     end
 
     context '特定のproductとuserに紐付いたlikeのレコードが取れない場合' do
-      let(:my_product) { FactoryBot.create(:product, user: user) }
+      let(:owner) { FactoryBot.create(:user) }
 
       before do
         FactoryBot.create(:like, user: user, product: product)
       end
 
       it 'likeのレコードが返ってこないこと' do
-        expect(my_product.get_like_by(user)).to be_nil
+        expect(product.get_like_by(owner)).to be_nil
       end
 
     end
