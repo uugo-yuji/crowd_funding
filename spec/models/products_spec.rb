@@ -47,12 +47,13 @@ RSpec.describe Product, type: :model do
 
   describe '#get_like_by(user)' do
     context '特定のproductとuserに紐付いたlikeのレコードが取れる場合' do
-      before do
-        @like = FactoryBot.create(:like, user: user, product: product)
-      end
+      # before do
+      #   @like = FactoryBot.create(:like, user: user, product: product)
+      # end
+      let!(:like) { FactoryBot.create(:like, user: user, product: product) }
 
       it 'likeが返ってくること' do
-        expect(product.get_like_by(user)).to eq(@like)
+        expect(product.get_like_by(user)).to eq(like)
       end
 
     end
