@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
 
+  enum status: { incomplete: 0, done: 1 }
+
   def owner?(user)
     self.user_id == user.id
   end
