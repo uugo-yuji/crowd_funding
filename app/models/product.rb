@@ -17,4 +17,13 @@ class Product < ApplicationRecord
   def get_like_by(user)
     likes.find_by(user_id: user.id)
   end
+
+  def price_goal?
+    self.goal_price >= investment_sum
+  end
+
+  def investment_sum
+    self.investments.all.sum(:price)
+  end
+
 end
