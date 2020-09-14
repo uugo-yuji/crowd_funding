@@ -1,5 +1,6 @@
 class InvestmentsController < ApplicationController
   # before_action :set_investment, only: [:show, :edit, :update, :destroy]
+  before_action :incorrect_user, only: [:new]
 
   # GET /investments
   # GET /investments.json
@@ -72,5 +73,12 @@ class InvestmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def investment_params
       params.require(:investment).permit(:price)
+    end
+
+    def incorrect_user
+      @product = Product.find(params[:product_id])
+      if @product.complete?
+        redirect_to product_path(@product)
+      end
     end
 end
