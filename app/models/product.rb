@@ -18,16 +18,12 @@ class Product < ApplicationRecord
     likes.find_by(user_id: user.id)
   end
 
-  def price_goal?
-    if self.goal_price >= investment_sum
+  def change_status
+    if self.goal_price >= investments.sum(:price)
       complete!
     else
       active!
     end
-  end
-
-  def investment_sum
-    self.investments.all.sum(:price)
   end
 
 end
