@@ -69,4 +69,30 @@ RSpec.describe Product, type: :model do
     end
   end
 
+  describe '#price_goal?' do
+    context '特定のproductの投資額が満たされている場合' do
+      let!(:product) { FactoryBot.create(:product, user: user, status: 0, goal_price: 1500) }
+
+      before do
+        FactoryBot.create(:investment, user: user, product: product)
+      end
+
+      it 'completeになること' do
+        expect(product.price_goal?).to be_truthy
+      end
+    end
+
+    context '特定のproductの投資額が満たされていない場合' do
+      let!(:product) { FactoryBot.create(:product, user: user, status: 0, goal_price: 0) }
+
+      before do
+        FactoryBot.create(:investment, user: user, product: product)
+      end
+
+      it 'activeになること' do
+        expect(product.price_goal?).to be_truthy
+      end
+    end
+  end
+
 end

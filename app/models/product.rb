@@ -19,7 +19,11 @@ class Product < ApplicationRecord
   end
 
   def price_goal?
-    self.goal_price >= investment_sum
+    if self.goal_price >= investment_sum
+      complete!
+    else
+      active!
+    end
   end
 
   def investment_sum
