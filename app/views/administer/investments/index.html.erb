@@ -1,2 +1,21 @@
-<h1>Administer::Investment#index</h1>
-<p>Find me in app/views/administer/investment/index.html.erb</p>
+
+<h1>Administer::Investments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @investments.each do |investment| %>
+      <tr>
+        <td><%= investment.user.name %></td>
+        <td><%= investment.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
