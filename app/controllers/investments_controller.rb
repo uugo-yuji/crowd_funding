@@ -1,6 +1,6 @@
 class InvestmentsController < ApplicationController
   # before_action :set_investment, only: [:show, :edit, :update, :destroy]
-  before_action :completed_product, only: [:new]
+  before_action :completed_product, only: [:new, :create]
 
   # GET /investments
   # GET /investments.json
