@@ -1,6 +1,6 @@
 class InvestmentsController < ApplicationController
   # before_action :set_investment, only: [:show, :edit, :update, :destroy]
-  before_action :incorrect_user, only: [:new]
+  before_action :completed_product, only: [:new]
 
   # GET /investments
   # GET /investments.json
@@ -75,7 +75,7 @@ class InvestmentsController < ApplicationController
       params.require(:investment).permit(:price)
     end
 
-    def incorrect_user
+    def completed_product
       @product = Product.find(params[:product_id])
       if @product.complete?
         redirect_to product_path(@product)
