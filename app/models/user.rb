@@ -11,4 +11,6 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :products
 
+  enum role: { general: 0, admin: 1 }
+
 end
