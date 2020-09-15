@@ -78,7 +78,8 @@ RSpec.describe Product, type: :model do
       end
 
       it 'completeになること' do
-        expect(product.change_status).to be_truthy
+        product.change_status
+        expect(product.status).to eq("complete")
       end
     end
 
@@ -90,7 +91,8 @@ RSpec.describe Product, type: :model do
       end
 
       it 'activeになること' do
-        expect(product.change_status).to be_truthy
+        product.change_status
+        expect(product.status).to eq("active")
       end
     end
   end
