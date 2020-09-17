@@ -19,7 +19,7 @@ class Product < ApplicationRecord
   end
 
   def change_status
-    if self.goal_price >= investments.sum(:price)
+    if self.goal_price <= investments.sum(:price)
       complete!
     else
       active!

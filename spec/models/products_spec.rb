@@ -71,28 +71,28 @@ RSpec.describe Product, type: :model do
 
   describe '#change_status' do
     context '特定のproductの投資額が満たされている場合' do
-      let!(:product) { FactoryBot.create(:product, user: user, status: 0, goal_price: 1500) }
+      let!(:product) { FactoryBot.create(:product, user: user, status: 0, goal_price: 1000) }
 
       before do
         FactoryBot.create(:investment, user: user, product: product)
+        product.change_status
       end
 
       it 'completeになること' do
-        product.change_status
-        expect(product.status).to eq("complete")
+        expect(product.complete?).to be_truthy
       end
     end
 
     context '特定のproductの投資額が満たされていない場合' do
-      let!(:product) { FactoryBot.create(:product, user: user, status: 0, goal_price: 0) }
+      let!(:product) { FactoryBot.create(:product, user: user, status: 0, goal_price: 1500) }
 
       before do
         FactoryBot.create(:investment, user: user, product: product)
+        product.change_status
       end
 
       it 'activeになること' do
-        product.change_status
-        expect(product.status).to eq("active")
+        expect(product.active?).to be_truthy
       end
     end
   end
