@@ -30,8 +30,7 @@ class InvestmentsController < ApplicationController
     @investment.product_id = params[:product_id]
 
     respond_to do |format|
-      if @investment.save
-        @investment.product.change_status
+      if @investment.save && @investment.product.change_status
         format.html { redirect_to product_investments_path, notice: 'Investment was successfully created.' }
         format.json { render :show, status: :created, location: @investment }
       else
