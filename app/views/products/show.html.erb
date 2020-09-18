@@ -18,7 +18,6 @@
 <% end %>
 <% unless @product.owner?(current_user) %>
   <% if @product.active? %>
-    <% @product.change_status %>
     <%= link_to '出資する', new_product_investment_path(@product) %> |
   <% end %>
 <% end %>

@@ -28,9 +28,10 @@ class InvestmentsController < ApplicationController
   def create
     @investment = current_user.investments.new(investment_params)
     @investment.product_id = params[:product_id]
-    # params[:product_id]でproduct_idを受け取れる
+
     respond_to do |format|
       if @investment.save
+        @investment.product.change_status
         format.html { redirect_to product_investments_path, notice: 'Investment was successfully created.' }
         format.json { render :show, status: :created, location: @investment }
       else
