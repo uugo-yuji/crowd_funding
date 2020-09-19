@@ -3,6 +3,8 @@ class Product < ApplicationRecord
   has_many :investments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
+  has_many :product_categories
+  has_many :categories, through: :product_categories
 
   enum status: { active: 0, complete: 1 }
 
