@@ -21,6 +21,11 @@
     <%= form.text_field :desc %>
   </div>
 
+  <div>
+    <%= form.label :category, 'カテゴリ' %>
+    <%= form.collection_select(:category_ids, Category.all, :id, :name, {multiple: true}) %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

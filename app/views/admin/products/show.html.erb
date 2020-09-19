@@ -10,5 +10,12 @@
   <%= @product.desc %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <% @product.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', admin_products_path(@product) %> |
 <%= link_to 'Back', admin_products_path %>

@@ -9,6 +9,14 @@
   <strong>Desc:</strong>
   <%= @product.desc %>
 </p>
+
+<p>
+  <strong>Category:</strong>
+  <% @product.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</p>
+
 <% unless @product.owner?(current_user) %>
   <% if @product.liked?(current_user) %>
     <%= button_to 'いいねを取り消す', product_like_path(@product), method: :delete %>
