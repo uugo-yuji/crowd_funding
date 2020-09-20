@@ -23,7 +23,12 @@
 
   <div>
     <%= form.label :category, 'カテゴリ' %>
-    <%= form.collection_select(:category_ids, Category.all, :id, :name, {multiple: true}) %>
+    <%= form.collection_check_boxes(:category_ids, Category.all, :id, :name) do |category| %> 
+      <%= category.label do %>
+        <%= category.check_box %>
+        <%= category.text %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="actions">
