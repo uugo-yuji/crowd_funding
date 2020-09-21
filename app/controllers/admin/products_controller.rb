@@ -17,6 +17,7 @@ class Admin::ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @product.product_categories.build
   end
 
   # GET /products/1/edit
@@ -71,7 +72,7 @@ class Admin::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :desc)
+      params.require(:product).permit(:title, :desc, product_categories_attributes:[:id, :category_id])
     end
 
     #productの所有者かどうか？

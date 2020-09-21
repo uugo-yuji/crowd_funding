@@ -3,6 +3,9 @@ class Product < ApplicationRecord
   has_many :investments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
+  has_many :product_categories, dependent: :destroy
+  has_many :categories, through: :product_categories
+  accepts_nested_attributes_for :product_categories, allow_destroy: true
 
   enum status: { active: 0, complete: 1 }
 
