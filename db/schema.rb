@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_024409) do
+ActiveRecord::Schema.define(version: 2020_09_22_011816) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_09_19_024409) do
   create_table "investments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "product_id"
-    t.string "price"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_investments_on_product_id"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_09_19_024409) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
     t.integer "status"
-    t.string "goal_price"
+    t.integer "goal_price"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
