@@ -2,6 +2,13 @@
 
 <h1>Products</h1>
 
+<%= form_tag(products_path, :method => 'get') do %>
+  <%= text_field_tag :search %>
+  <%= text_field_tag :goal_price %>
+  <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]),:include_blank => '選択して下さい' %>
+  <%= submit_tag '検索' %>
+<% end %>
+
 <table>
   <thead>
     <tr>

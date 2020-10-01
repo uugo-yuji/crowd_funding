@@ -29,4 +29,15 @@ class Product < ApplicationRecord
     end
   end
 
+  def self.search(query)
+    results = all
+    if query[:category_id].present?
+      category = Category.find(query[:category_id])
+      results = category.products
+    end
+    results = results.where(['title LIKE ?', "#{query[:search]}%"]) if query[:search].present?
+    results = results.where(['goal_price LIKE ?', "#{query[:goal_price]}"]) if query[:goal_price].present?
+    results
+  end
+
 end

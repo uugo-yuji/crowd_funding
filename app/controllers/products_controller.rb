@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.all.search(search_params)
   end
 
   # GET /products/1
@@ -17,5 +17,9 @@ class ProductsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
+    end
+
+    def search_params
+      params.permit(:search, :goal_price, :category_id ,:commit)
     end
 end
