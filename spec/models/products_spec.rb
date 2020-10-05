@@ -105,26 +105,26 @@ RSpec.describe Product, type: :model do
         FactoryBot.create(:product, user: user, title: 'sample')
       end
 
-      it '検索ワードがマッチすること' do
+      it 'titleの件数が期待通りであること' do
         expect(Product.search({ search: "s"}).count).to eq 1
       end
 
-      it '検索ワードがマッチしないこと' do
+      it 'title件数が期待通りであること' do
         expect(Product.search({ search: "a"}).count).to eq 0
       end
     end
 
     context 'ワード検索の場合'do
 
-    before do
-      FactoryBot.create(:product, user: user, goal_price: 3000)
-    end
+      before do
+        FactoryBot.create(:product, user: user, goal_price: 3000)
+      end
 
-      it '検索ワードにマッチすること'do
+      it 'goal_priceの件数が期待通りであること'do
         expect(Product.search({ goal_price: 3000}).count).to eq 1
       end
 
-      it '検索ワードにマッチしないこと' do
+      it 'goal_priceの件数が期待通りであること' do
         expect(Product.search({ goal_price: 10000}).count).to eq 0
       end
     end
@@ -135,11 +135,11 @@ RSpec.describe Product, type: :model do
       FactoryBot.create(:product)
     end
 
-    it '検索ワードがマッチすること' do
+    it 'categoryの件数が期待通りであること' do
       expect(Product.search({ category_id: "1"}).count).to eq 1
     end
 
-    it '検索ワードがマッチしないこと' do
+    it 'categoryの件数が期待通りであること' do
       expect(Product.search({ category_id: ""}).count).to eq 1
     end
   end
@@ -150,15 +150,15 @@ RSpec.describe Product, type: :model do
       FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000)
     end
 
-    it 'titleとgoal_priceでマッチすること' do
+    it 'titleとgoal_priceの件数が期待通りであること' do
       expect(Product.search({ title: 's', goal_price: 3000}).count).to eq 1
     end
 
-    it 'titleとcategoryでマッチすること' do
+    it 'titleとcategoryの件数が期待通りであること' do
       expect(Product.search({ title: 's', category_id: "1"}).count).to eq 1
     end
 
-    it 'goal_priceとcategoryでマッチすること' do
+    it 'goal_priceとcategoryの件数が期待通りであること' do
       expect(Product.search({ goal_price: 3000, category_id: "1"}).count).to eq 1
     end
   end
