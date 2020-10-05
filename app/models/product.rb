@@ -36,7 +36,7 @@ class Product < ApplicationRecord
       results = category.products
     end
     results = results.where(['title LIKE ?', "#{query[:search]}%"]) if query[:search].present?
-    results = results.where(['goal_price LIKE ?', "#{query[:goal_price]}"]) if query[:goal_price].present?
+    results = results.where(goal_price: query[:goal_price]) if query[:goal_price].present?
     results
   end
 
