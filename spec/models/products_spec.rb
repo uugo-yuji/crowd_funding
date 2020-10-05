@@ -99,7 +99,7 @@ RSpec.describe Product, type: :model do
 
   describe '#search(query)' do
 
-    context '検索ワードがtitleの場合' do
+    context 'ワード検索の場合' do
 
       before do
         FactoryBot.create(:product, user: user, title: 'sample')
@@ -114,7 +114,7 @@ RSpec.describe Product, type: :model do
       end
     end
 
-    context '検索ワードがgoal_priceの場合'do
+    context 'ワード検索の場合'do
 
     before do
       FactoryBot.create(:product, user: user, goal_price: 3000)
@@ -129,7 +129,7 @@ RSpec.describe Product, type: :model do
       end
     end
 
-  context '検索ワードがcategoryの場合' do
+  context 'ワード検索の場合' do
 
     before do
       FactoryBot.create(:product)
@@ -144,7 +144,7 @@ RSpec.describe Product, type: :model do
     end
   end
 
-  context '検索ワードが複合の場合' do
+  context 'ワード検索の場合' do
 
     before do
       FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000)
