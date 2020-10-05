@@ -99,40 +99,67 @@ RSpec.describe Product, type: :model do
 
   describe '#search(query)' do
 
-    context '検索ワードがタイトルにマッチする場合' do
-      let!(:product1) { FactoryBot.create(:product, user: user, title: 'sample') }
-      let!(:product2) { FactoryBot.create(:product, user: user, title: 'sam') }
-      let!(:product3) { FactoryBot.create(:product, user: user, title: 's') }
+    context '検索ワードがtitleの場合' do
 
-      it 'タイトルにマッチするプロダクトの取得' do
-        expect(Product.search({ search: "s"}).count).to eq 3
+      before do
+        FactoryBot.create(:product, user: user, title: 'sample')
+      end
+
+      it '検索ワードがマッチすること' do
+        expect(Product.search({ search: "s"}).count).to eq 1
+      end
+
+      it '検索ワードがマッチしないこと' do
+        expect(Product.search({ search: "a"}).count).to eq 0
       end
     end
 
-    context '検索ワードがgoal_priceにマッチする場合'do
+    context '検索ワードがgoal_priceの場合'do
 
-    let!(:product1) { FactoryBot.create(:product, user: user, goal_price: 3000) }
-    let!(:product2) { FactoryBot.create(:product, user: user, goal_price: 1000) }
+    before do
+      FactoryBot.create(:product, user: user, goal_price: 3000)
+    end
 
-      it 'goal_priceにマッチするプロダクトの取得'do
-      expect(Product.search({ goal_price: 3000}).count).to eq 1
+      it '検索ワードにマッチすること'do
+        expect(Product.search({ goal_price: 3000}).count).to eq 1
+      end
+
+      it '検索ワードにマッチしないこと' do
+        expect(Product.search({ goal_price: 10000}).count).to eq 0
       end
     end
 
-  context '検索ワードがカテゴリーにマッチする場合' do
+  context '検索ワードがcategoryの場合' do
 
     before do
       FactoryBot.create(:product)
     end
 
-    it 'カテゴリーがマッチするプロダクトの取得' do
+    it '検索ワードがマッチすること' do
       expect(Product.search({ category_id: "1"}).count).to eq 1
+    end
+
+    it '検索ワードがマッチしないこと' do
+      expect(Product.search({ category_id: ""}).count).to eq 1
     end
   end
 
-  context '検索ワードがどれにもマッチしない場合' do
+  context '検索ワードが複合の場合' do
 
-    it '' do
+    before do
+      FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000)
+    end
+
+    it 'titleとgoal_priceでマッチすること' do
+      expect(Product.search({ title: 's', goal_price: 3000}).count).to eq 1
+    end
+
+    it 'titleとcategoryでマッチすること' do
+      expect(Product.search({ title: 's', category_id: "1"}).count).to eq 1
+    end
+
+    it 'goal_priceとcategoryでマッチすること' do
+      expect(Product.search({ goal_price: 3000, category_id: "1"}).count).to eq 1
     end
   end
 end
