@@ -97,4 +97,43 @@ RSpec.describe Product, type: :model do
     end
   end
 
+  describe '#search(query)' do
+
+    context '検索ワードがタイトルにマッチする場合' do
+      let!(:product1) { FactoryBot.create(:product, user: user, title: 'sample') }
+      let!(:product2) { FactoryBot.create(:product, user: user, title: 'sam') }
+      let!(:product3) { FactoryBot.create(:product, user: user, title: 's') }
+
+      it 'タイトルにマッチするプロダクトの取得' do
+        expect(Product.search({ search: "s"}).count).to eq 3
+      end
+    end
+
+    context '検索ワードがgoal_priceにマッチする場合'do
+
+    let!(:product1) { FactoryBot.create(:product, user: user, goal_price: 3000) }
+    let!(:product2) { FactoryBot.create(:product, user: user, goal_price: 1000) }
+
+      it 'goal_priceにマッチするプロダクトの取得'do
+      expect(Product.search({ goal_price: 3000}).count).to eq 1
+      end
+    end
+
+  context '検索ワードがカテゴリーにマッチする場合' do
+
+    before do
+      FactoryBot.create(:product)
+    end
+
+    it 'カテゴリーがマッチするプロダクトの取得' do
+      expect(Product.search({ category_id: "1"}).count).to eq 1
+    end
+  end
+
+  context '検索ワードがどれにもマッチしない場合' do
+
+    it '' do
+    end
+  end
+end
 end

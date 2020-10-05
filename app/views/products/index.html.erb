@@ -3,9 +3,15 @@
 <h1>Products</h1>
 
 <%= form_tag(products_path, :method => 'get') do %>
+  <%= label :search, "タイトル名" %>
   <%= text_field_tag :search %>
-  <%= text_field_tag :goal_price %>
+
+  <%= label :goal_price, "出資希望額" %>
+  <%= number_field_tag :goal_price %>
+
+  <%= label :category_id, "カテゴリー" %>
   <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]),:include_blank => '選択して下さい' %>
+
   <%= submit_tag '検索' %>
 <% end %>
 
