@@ -130,10 +130,8 @@ RSpec.describe Product, type: :model do
     end
 
   context 'ワード検索の場合' do
-
-    before do
-      FactoryBot.create(:product)
-    end
+    let!(:category) { FactoryBot.create(:category) }
+    let!(:product_category) { FactoryBot.create(:product_category, product: product, category: category) }
 
     it 'categoryの件数が期待通りであること' do
       expect(Product.search({ category_id: "1"}).count).to eq 1
@@ -146,9 +144,9 @@ RSpec.describe Product, type: :model do
 
   context 'ワード検索の場合' do
 
-    before do
-      FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000)
-    end
+    let!(:product) { FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000) }
+    let!(:category) { FactoryBot.create(:category) }
+    let!(:product_category) { FactoryBot.create(:product_category, product: product, category: category) }
 
     it 'titleとgoal_priceの件数が期待通りであること' do
       expect(Product.search({ title: 's', goal_price: 3000}).count).to eq 1
