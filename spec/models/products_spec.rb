@@ -99,65 +99,114 @@ RSpec.describe Product, type: :model do
 
   describe '#search(query)' do
 
-    context 'ワード検索の場合' do
+    context 'タイトルでの検索の場合' do
 
       before do
         FactoryBot.create(:product, user: user, title: 'sample')
       end
 
-      it 'titleの件数が期待通りであること' do
-        expect(Product.search({ search: "s"}).count).to eq 1
+      it 'titleの検索件数が期待通りであること' do
+        expect(Product.search({ search: "s" }).count).to eq 1
       end
 
-      it 'title件数が期待通りであること' do
-        expect(Product.search({ search: "a"}).count).to eq 0
+      it 'titleの検索件数が期待通りであること' do
+        expect(Product.search({ search: "a" }).count).to eq 0
       end
     end
 
-    context 'ワード検索の場合'do
+    context '金額での検索の場合'do
 
       before do
         FactoryBot.create(:product, user: user, goal_price: 3000)
       end
 
-      it 'goal_priceの件数が期待通りであること'do
-        expect(Product.search({ goal_price: 3000}).count).to eq 1
+      it 'goal_priceの検索件数が期待通りであること'do
+        expect(Product.search({ goal_price: 3000 }).count).to eq 1
       end
 
-      it 'goal_priceの件数が期待通りであること' do
-        expect(Product.search({ goal_price: 10000}).count).to eq 0
+      it 'goal_priceの検索件数が期待通りであること' do
+        expect(Product.search({ goal_price: 10000 }).count).to eq 0
       end
     end
 
-  context 'ワード検索の場合' do
-    let!(:category) { FactoryBot.create(:category) }
-    let!(:product_category) { FactoryBot.create(:product_category, product: product, category: category) }
+  context 'カテゴリーでの検索の場合' do
 
-    it 'categoryの件数が期待通りであること' do
-      expect(Product.search({ category_id: "1"}).count).to eq 1
+    before do
+      category = FactoryBot.create(:category) 
+      FactoryBot.create(:product_category, product: product, category: category)
     end
 
-    it 'categoryの件数が期待通りであること' do
-      expect(Product.search({ category_id: ""}).count).to eq 1
+    it 'categoryの検索件数が期待通りであること' do
+      expect(Product.search({ category_id: "2" }).count).to eq 1
+    end
+
+    it 'categoryの検索件数が期待通りであること' do
+      expect(Product.search({ category_id: "" }).count).to eq 1
     end
   end
 
-  context 'ワード検索の場合' do
+  context '複合検索の場合' do
 
-    let!(:product) { FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000) }
-    let!(:category) { FactoryBot.create(:category) }
-    let!(:product_category) { FactoryBot.create(:product_category, product: product, category: category) }
+    context 'タイトルと金額が検索条件の場合' do
 
-    it 'titleとgoal_priceの件数が期待通りであること' do
-      expect(Product.search({ title: 's', goal_price: 3000}).count).to eq 1
+      before do
+        product1 = FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000)
+        product2 = FactoryBot.create(:product, user: user, title: 'system', goal_price: 3000)
+        product3 = FactoryBot.create(:product, user: user, title: 'test', goal_price: 1000)
+      end
+
+      it 'titleとgoal_priceの検索件数が期待通りであること' do
+        expect(Product.search({ title: 's', goal_price: 3000 }).count).to eq 2
+      end
     end
+  
+    context 'タイトルとカテゴリーが検索条件の場合' do
 
-    it 'titleとcategoryの件数が期待通りであること' do
-      expect(Product.search({ title: 's', category_id: "1"}).count).to eq 1
+
+      before do
+        product1 = FactoryBot.create(:product, user: user, title: 'sample')
+        product2 = FactoryBot.create(:product, user: user, title: 'system')
+        product3 = FactoryBot.create(:product, user: user, title: 'test')
+        category = FactoryBot.create(:category)
+        FactoryBot.create(:product_category, product: product1, category: category)
+        FactoryBot.create(:product_category, product: product2, category: category)
+      end
+
+      it 'titleとcategoryの検索件数が期待通りであること' do
+        expect(Product.search({ title: 's', category_id: "2" }).count).to eq 2
+      end
     end
+  
+    context '金額とカテゴリーが検索条件の場合' do
 
-    it 'goal_priceとcategoryの件数が期待通りであること' do
-      expect(Product.search({ goal_price: 3000, category_id: "1"}).count).to eq 1
+      before do
+        product1 = FactoryBot.create(:product, user: user, goal_price: 3000)
+        product2 = FactoryBot.create(:product, user: user, goal_price: 3000)
+        product3 = FactoryBot.create(:product, user: user, goal_price: 1000)
+        category = FactoryBot.create(:category)
+        FactoryBot.create(:product_category, product: product1, category: category)
+        FactoryBot.create(:product_category, product: product2, category: category)
+      end
+
+      it 'goal_priceとcategoryの検索件数が期待通りであること' do
+        expect(Product.search({ goal_price: 3000, category_id: "2" }).count).to eq 2
+      end
+    end
+  
+    context '全ての項目が検索条件の場合' do
+
+      before do
+        product1 = FactoryBot.create(:product, user: user, title: 'sample', goal_price: 3000)
+        product2 = FactoryBot.create(:product, user: user, title: 'system', goal_price: 3000)
+        product3 = FactoryBot.create(:product, user: user, title: 'test', goal_price: 1000)
+        category = FactoryBot.create(:category)
+        FactoryBot.create(:product_category, product: product1, category: category)
+        FactoryBot.create(:product_category, product: product2, category: category)
+      end
+
+      it 'title,goal_price,category全項目の検索件数が期待通りであること' do
+        expect(Product.search({ search: "s", goal_price: 3000, category_id: "2" }).count).to eq 2
+      end
     end
   end
 end
