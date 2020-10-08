@@ -72,7 +72,7 @@ class Admin::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :desc, product_categories_attributes:[:id, :category_id])
+      params.require(:product).permit(:title, :desc, :goal_price, :image ,product_categories_attributes:[:id, :category_id])
     end
 
     #productの所有者かどうか？

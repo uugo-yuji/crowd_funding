@@ -11,9 +11,21 @@
 </p>
 
 <p>
+  <strong>GoalProce:</strong>
+  <%= @product.goal_price %>
+</p>
+
+<p>
   <strong>Category:</strong>
   <% @product.categories.each do |category| %>
     <%= category.name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>image:</strong>
+  <% if @product.image.attached? %>
+    <%= image_tag @product.image %>
   <% end %>
 </p>
 
