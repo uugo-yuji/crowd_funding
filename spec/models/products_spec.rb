@@ -141,7 +141,7 @@ RSpec.describe Product, type: :model do
     end
 
     it 'categoryの検索件数が期待通りであること' do
-      expect(Product.search({ category_id: "" }).count).to eq 1
+      expect(Product.search({ category_id: "1" }).count).to eq 0
     end
   end
 
