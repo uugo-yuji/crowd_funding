@@ -105,11 +105,11 @@ RSpec.describe Product, type: :model do
         FactoryBot.create(:product, user: user, title: 'sample')
       end
 
-      it 'titleの検索件数が期待通りであること' do
+      it 'タイトルの検索条件を満たす結果が取得できること' do
         expect(Product.search({ search: "s" }).count).to eq 1
       end
 
-      it 'titleの検索件数が期待通りであること' do
+      it 'タイトルの検索条件を満たさない結果は取得できないこと' do
         expect(Product.search({ search: "a" }).count).to eq 0
       end
     end
@@ -120,11 +120,11 @@ RSpec.describe Product, type: :model do
         FactoryBot.create(:product, user: user, goal_price: 3000)
       end
 
-      it 'goal_priceの検索件数が期待通りであること'do
+      it '金額の検索条件を満たす結果が取得できること' do
         expect(Product.search({ goal_price: 3000 }).count).to eq 1
       end
 
-      it 'goal_priceの検索件数が期待通りであること' do
+      it '金額の検索条件を満たさない結果は取得できないこと' do
         expect(Product.search({ goal_price: 10000 }).count).to eq 0
       end
     end
@@ -136,11 +136,11 @@ RSpec.describe Product, type: :model do
       FactoryBot.create(:product_category, product: product, category: category)
     end
 
-    it 'categoryの検索件数が期待通りであること' do
+    it 'カテゴリーの検索条件を満たす結果が取得できること' do
       expect(Product.search({ category_id: "2" }).count).to eq 1
     end
 
-    it 'categoryの検索件数が期待通りであること' do
+    it 'カテゴリーの検索条件を満たさない結果は取得できないこと' do
       expect(Product.search({ category_id: "1" }).count).to eq 0
     end
   end
@@ -155,7 +155,7 @@ RSpec.describe Product, type: :model do
         product3 = FactoryBot.create(:product, user: user, title: 'test', goal_price: 1000)
       end
 
-      it 'titleとgoal_priceの検索件数が期待通りであること' do
+      it 'タイトルと金額の検索条件を満たす結果が取得できること' do
         expect(Product.search({ title: 's', goal_price: 3000 }).count).to eq 2
       end
     end
@@ -172,7 +172,7 @@ RSpec.describe Product, type: :model do
         FactoryBot.create(:product_category, product: product2, category: category)
       end
 
-      it 'titleとcategoryの検索件数が期待通りであること' do
+      it 'タイトルとカテゴリーの検索条件を満たす結果が取得できること' do
         expect(Product.search({ title: 's', category_id: "2" }).count).to eq 2
       end
     end
@@ -188,7 +188,7 @@ RSpec.describe Product, type: :model do
         FactoryBot.create(:product_category, product: product2, category: category)
       end
 
-      it 'goal_priceとcategoryの検索件数が期待通りであること' do
+      it '金額とカテゴリーの検索条件を満たす結果が取得できること' do
         expect(Product.search({ goal_price: 3000, category_id: "2" }).count).to eq 2
       end
     end
@@ -204,7 +204,7 @@ RSpec.describe Product, type: :model do
         FactoryBot.create(:product_category, product: product2, category: category)
       end
 
-      it 'title,goal_price,category全項目の検索件数が期待通りであること' do
+      it 'タイトル,金額,カテゴリー全項目の検索条件を満たす結果が取得できること' do
         expect(Product.search({ search: "s", goal_price: 3000, category_id: "2" }).count).to eq 2
       end
     end
