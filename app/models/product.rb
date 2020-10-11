@@ -30,4 +30,12 @@ class Product < ApplicationRecord
     end
   end
 
+  def self.search(query)
+    results = all
+    results = results.joins(:categories).where(categories: {id: query[:category_id]}) if query[:category_id].present?
+    results = results.where(['title LIKE ?', "#{query[:search]}%"]) if query[:search].present?
+    results = results.where(goal_price: query[:goal_price]) if query[:goal_price].present?
+    results
+  end
+
 end
