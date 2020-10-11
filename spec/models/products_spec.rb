@@ -137,11 +137,11 @@ RSpec.describe Product, type: :model do
     end
 
     it 'カテゴリーの検索条件を満たす結果が取得できること' do
-      expect(Product.search({ category_id: "2" }).count).to eq 1
+      expect(Product.search({ category_id: "1" }).count).to eq 1
     end
 
     it 'カテゴリーの検索条件を満たさない結果は取得できないこと' do
-      expect(Product.search({ category_id: "1" }).count).to eq 0
+      expect(Product.search({ category_id: "2" }).count).to eq 0
     end
   end
 
@@ -173,23 +173,23 @@ RSpec.describe Product, type: :model do
       end
 
       it 'タイトルとカテゴリーの検索条件を満たす結果が取得できること' do
-        expect(Product.search({ title: 's', category_id: "2" }).count).to eq 2
+        expect(Product.search({ title: 's', category_id: "1" }).count).to eq 2
       end
     end
   
     context '金額とカテゴリーが検索条件の場合' do
 
       before do
-        product1 = FactoryBot.create(:product, user: user, goal_price: 3000)
-        product2 = FactoryBot.create(:product, user: user, goal_price: 3000)
-        product3 = FactoryBot.create(:product, user: user, goal_price: 1000)
+        product1 = FactoryBot.create(:product, user: user, title: 'test' ,goal_price: 3000)
+        product2 = FactoryBot.create(:product, user: user, title: 'sample' ,goal_price: 3000)
+        product3 = FactoryBot.create(:product, user: user, title: 'system' ,goal_price: 1000)
         category = FactoryBot.create(:category)
         FactoryBot.create(:product_category, product: product1, category: category)
         FactoryBot.create(:product_category, product: product2, category: category)
       end
 
       it '金額とカテゴリーの検索条件を満たす結果が取得できること' do
-        expect(Product.search({ goal_price: 3000, category_id: "2" }).count).to eq 2
+        expect(Product.search({ goal_price: 3000, category_id: "1" }).count).to eq 2
       end
     end
   
@@ -205,7 +205,7 @@ RSpec.describe Product, type: :model do
       end
 
       it 'タイトル,金額,カテゴリー全項目の検索条件を満たす結果が取得できること' do
-        expect(Product.search({ search: "s", goal_price: 3000, category_id: "2" }).count).to eq 2
+        expect(Product.search({ search: "s", goal_price: 3000, category_id: "1" }).count).to eq 2
       end
     end
   end
