@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   has_many :categories, through: :product_categories
   accepts_nested_attributes_for :product_categories, allow_destroy: true
   has_one_attached :image
+  has_many :message_groups
 
   enum status: { active: 0, complete: 1 }
 
