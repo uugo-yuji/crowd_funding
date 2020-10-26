@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  post 'messages/send'
+  get 'message_groups/index'
+  get 'message_groups/show'
+  post 'message_groups/create'
   devise_for :users
   resources :products, only: [:index, :show] do
     resources :investments, only: [:index, :new, :create]
