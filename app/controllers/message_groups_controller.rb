@@ -6,6 +6,5 @@ class MessageGroupsController < ApplicationController
   end
 
   def create
-    
   end
 end
