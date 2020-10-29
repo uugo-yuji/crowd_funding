@@ -43,4 +43,7 @@ class Product < ApplicationRecord
     results
   end
 
+  def investments_user?(user)
+    self.investments.exists?(user_id: user)
+  end
 end
