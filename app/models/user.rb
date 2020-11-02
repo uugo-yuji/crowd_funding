@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :products
   has_many :user_message_groups
+  has_many :message_groups, through: :user_message_groups
 
   enum role: { general: 0, admin: 1 }
 

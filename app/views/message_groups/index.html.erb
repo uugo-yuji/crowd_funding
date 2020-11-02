@@ -1,2 +1,9 @@
 <h1>MessageGroups#index</h1>
 <p>Find me in app/views/message_groups/index.html.erb</p>
+<% if @message_groups.present? %>
+  <% @message_groups.each do |message_group| %>
+    <%= link_to "MessagesGroup#{message_group.id}", message_group_path(message_group) %>
+  <% end %>
+<% else %>
+  <h1>やりとりがありません。</h1>
+<% end %>

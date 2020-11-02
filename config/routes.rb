@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  post 'messages/send'
-  resources :message_groups, only: [:index, :show, :create]
+  
+  resources :message_groups, only: [:index, :show, :create] do
+    resources :messages, only: [:destroy] do
+      post :sent, on: :collection
+    end
+  end
   devise_for :users
   resources :products, only: [:index, :show] do
     resources :investments, only: [:index, :new, :create]
