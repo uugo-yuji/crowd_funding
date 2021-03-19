@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   def sent
     message_group = MessageGroup.find(params[:message_group_id])
     @message = message_group.messages.new(message_params)
-    # @message.message_group_id = params[:message][:message_group_id]
+    @message.user = current_user
 
     if @message.save!
       redirect_to message_group_path(@message.message_group_id)
@@ -16,6 +16,6 @@ class MessagesController < ApplicationController
   private
 
     def message_params
-      params.require(:message).permit(:content).merge(user_id: current_user.id)
+      params.require(:message).permit(:content)
     end
 end

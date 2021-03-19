@@ -231,7 +231,6 @@ RSpec.describe Product, type: :model do
       end
 
       it 'falseになること' do
-        byebug
         expect(product.investments_user?(owner)).to be_falsey
       end
     end

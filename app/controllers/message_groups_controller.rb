@@ -10,8 +10,7 @@ class MessageGroupsController < ApplicationController
   end
 
   def create
-    @message_group = MessageGroup.new(message_group_params)
-    @message_group.users << current_user
+    @message_group = current_user.message_groups.new(message_group_params)
 
     if @message_group.save!
       redirect_to message_group_url(@message_group)
