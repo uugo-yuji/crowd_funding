@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_063136) do
+ActiveRecord::Schema.define(version: 2020_11_28_093550) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,23 @@ ActiveRecord::Schema.define(version: 2020_09_22_063136) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "message_groups", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_message_groups_on_product_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "message_group_id", null: false
+    t.integer "user_id", null: false
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_group_id"], name: "index_messages_on_message_group_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "product_categories", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "category_id", null: false
@@ -73,9 +90,18 @@ ActiveRecord::Schema.define(version: 2020_09_22_063136) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
-    t.integer "status"
     t.integer "goal_price"
+    t.integer "status"
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "user_message_groups", force: :cascade do |t|
+    t.integer "message_group_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_group_id"], name: "index_user_message_groups_on_message_group_id"
+    t.index ["user_id"], name: "index_user_message_groups_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -112,7 +138,12 @@ ActiveRecord::Schema.define(version: 2020_09_22_063136) do
   add_foreign_key "investments", "users"
   add_foreign_key "likes", "products"
   add_foreign_key "likes", "users"
+  add_foreign_key "message_groups", "products"
+  add_foreign_key "messages", "message_groups"
+  add_foreign_key "messages", "users"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
   add_foreign_key "products", "users"
+  add_foreign_key "user_message_groups", "message_groups"
+  add_foreign_key "user_message_groups", "users"
 end

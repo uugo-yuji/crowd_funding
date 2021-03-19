@@ -1,0 +1,24 @@
+<h1>MessageGroups#show</h1>
+
+<% if @messages.present? %>
+  <% @messages.each do |message| %>
+    <strong><%= message.content %></strong><br>
+    <small>by :</small><%= message.user.email %>さん<br>
+    <hr>
+  <% end %>
+<% else %>
+  <h1>メッセージはありません。</h1>
+<% end %>
+
+
+<%= form_with(model: @message, url: sent_message_group_messages_path(@message_group), local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit '送信' %>
+  </div>
+<% end %>
