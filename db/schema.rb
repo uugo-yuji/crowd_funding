@@ -12,17 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2020_11_28_093550) do
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,15 +33,15 @@ ActiveRecord::Schema.define(version: 2020_11_28_093550) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "investments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+  create_table "investments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "product_id"
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -49,25 +49,25 @@ ActiveRecord::Schema.define(version: 2020_11_28_093550) do
     t.index ["user_id"], name: "index_investments_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "product_id", null: false
+  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_likes_on_product_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "message_groups", force: :cascade do |t|
-    t.integer "product_id", null: false
+  create_table "message_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_message_groups_on_product_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.integer "message_group_id", null: false
-    t.integer "user_id", null: false
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "message_group_id", null: false
+    t.bigint "user_id", null: false
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -75,36 +75,36 @@ ActiveRecord::Schema.define(version: 2020_11_28_093550) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-  create_table "product_categories", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "category_id", null: false
+  create_table "product_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_product_categories_on_category_id"
     t.index ["product_id"], name: "index_product_categories_on_product_id"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.string "desc"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id", null: false
-    t.integer "goal_price"
+    t.bigint "user_id", null: false
     t.integer "status"
+    t.integer "goal_price"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "user_message_groups", force: :cascade do |t|
-    t.integer "message_group_id", null: false
-    t.integer "user_id", null: false
+  create_table "user_message_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "message_group_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["message_group_id"], name: "index_user_message_groups_on_message_group_id"
     t.index ["user_id"], name: "index_user_message_groups_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
     t.string "email", default: "", null: false
