@@ -14,10 +14,13 @@
       <nav>
           <% if user_signed_in? %>
             <strong><%= current_user.name %></strong>
+            <%= link_to 'ホーム', products_path %>
+            <%= link_to 'プロダクトを作成する', new_admin_product_path %>
             <%= link_to 'プロフィール変更', edit_user_registration_path %>
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+            <%= link_to 'ログアウト', destroy_user_session_path, methodpa: :delete %>
             <%= link_to 'メッセージ一覧', message_groups_path %>
           <% else %>
+            <%= link_to 'ホーム', products_path %>
             <%= link_to 'サインアップ', new_user_registration_path %>
             <%= link_to 'ログイン', new_user_session_path %>
           <% end %>
