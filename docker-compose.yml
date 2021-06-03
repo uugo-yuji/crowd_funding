@@ -10,8 +10,6 @@ services:
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
     ports: 
       - '3306:3306'
-    volumes:
-      - ./tmp/mysql.sock
     env_file: .env
 
   web:
