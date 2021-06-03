@@ -8,15 +8,16 @@ default: &default
 
 development:
   <<: *default
-  database: crowd_funding_development
+  database: <%= ENV['DB_DATABASE_DL'] %>
 
 test:
   <<: *default
-  database: crowd_funding_test
+  database: <%= ENV['DB_DATABASE_TS'] %>
 
 production:
   <<: *default
-  database: crowd_funding_production
+  database: <%= ENV['DB_DATABASE_PR'] %>
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
 
