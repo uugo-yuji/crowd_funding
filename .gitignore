@@ -51,3 +51,4 @@ node_modules/
 .history/
 .vscode/
 storage/
+/config/master.key

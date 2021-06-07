@@ -3,7 +3,6 @@ version: '3'
 services:
   app:
     build: .
-      context: .
     command: bundle exec puma -c config/puma.rb -e production
     volumes:
       - .:/crowd_funding
