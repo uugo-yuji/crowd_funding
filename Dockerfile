@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-WORKDIR /c
+WORKDIR /crowd_funding
 
 COPY Gemfile /crowd_funding/Gemfile
 COPY Gemfile.lock /crowd_funding/Gemfile.lock
