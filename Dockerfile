@@ -6,12 +6,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-WORKDIR /portfolio_project
+WORKDIR /c
 
-COPY Gemfile /portfolio_project/Gemfile
-COPY Gemfile.lock /portfolio_project/Gemfile.lock
+COPY Gemfile /crowd_funding/Gemfile
+COPY Gemfile.lock /crowd_funding/Gemfile.lock
 
 RUN gem install bundler
 RUN bundle install
 
-COPY . /portfolio_project
+COPY . /crowd_funding

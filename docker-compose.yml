@@ -2,9 +2,8 @@ version: '3'
 
 services:
   app:
-    build:
-      context: .
-    command: bundle exec puma -C config/puma.rb -e production
+    build: .
+    command: bundle exec puma -c config/puma.rb -e production
     volumes:
       - .:/crowd_funding
       - public-data:/crowd_funding/public
@@ -23,14 +22,14 @@ services:
 
   web:
     build:
-      context: .
-      dockerfile: Dockerfile
-    # command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    # tty: true 
-    # stdin_open: true
-    depends_on:
-      - db
-    # ports:
-    #   - "3000:3000"
+      context: containers/nginx
     volumes:
-      - .:/portfolio_project
+      - public-data:/crowd_funding/public
+      - tmp-data:/crowd_funding/tmp
+    ports:
+      - 80:80
+
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
